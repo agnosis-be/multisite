@@ -1,0 +1,14 @@
+<div style="width: 100%;">
+    <div style="float: left;width: 50%;text-align: left;">
+        <input type="button" class="button home" title="Home" onclick="location.href='index.php'">
+    </div>
+    <div style="float: left;width: 50%;text-align: right;">
+        <form action="index.php" method="post" style="display: inline;">
+            <input type="hidden" name="c" value="auth">
+            <input type="hidden" name="a" value="logout">
+            <input tabindex="-1" type="submit" class="button close" title="Logout" value="" onclick="return window.confirm('Do you want to logout?')">
+        </form>
+    </div>
+</div>
+
+<br style="clear: both;">

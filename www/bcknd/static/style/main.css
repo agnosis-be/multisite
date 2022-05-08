@@ -1,0 +1,133 @@
+@import url('/static/style/icons.css');
+
+html {
+}
+
+body {
+    background-color: gray;
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+th {
+    text-align: left;
+    font-weight: bold;
+}
+
+input.button {
+    background-repeat: no-repeat;
+    background-position: top left;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+fieldset {
+    margin-bottom: 15px;
+    border-color: gray;
+    border-width: 1px;
+}
+
+legend {
+    font-size: 9pt;
+    font-weight: bold;
+}
+
+.topnav input.button {
+    height: 64px;
+    width: 64px;
+}
+
+input.button:hover {
+    border: 1px solid gray;
+}
+
+input.error {
+    background-color: #FF9999;
+}
+
+label {
+    display: block;
+    float: left;
+    width: 100px;
+}
+
+#Page {
+    background-color: white;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    height: auto !important;
+    min-height: 600px;
+    height: 600px;
+}
+
+body #Lock {
+    position: absolute;
+    z-index: 500;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+    text-align: center;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+}
+
+#Msg {
+    position: absolute;
+    top: 200px;
+    background-color: #FFFFFF;
+    width: 50%;
+    padding: 10px;
+    margin-left: 20%;
+    margin-right: 20%;
+    border: 1px solid black;
+    z-index: 1000;
+    text-align: center;
+    border-radius: 10px;
+}
+
+#col1 {
+    float: left;
+    width: 70%;
+}
+
+#col2 {
+    float: left;
+    width: 30%;
+}
+
+#files {
+    min-height: 170px;
+}
+
+@media only screen and (max-width: 600px) {
+    #col1 {
+        float: none;
+        width: auto;
+    }
+    
+    #col2 {
+        clear: both;
+        float: none;
+        width: 100%;
+    }
+    #col2 files {
+        height: auto;
+    }
+    table {
+        width: auto;
+    }
+    td {
+        overflow-wrap: anywhere ! important;
+        word-wrap: break-word;
+    }
+}

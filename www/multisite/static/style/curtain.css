@@ -1,0 +1,171 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+
+}
+
+body {
+    font-family: Georgia, serif;
+    background-color: gray;
+    padding: 10px;
+}
+
+p {
+    margin: 10px 0 10px 0;
+}
+
+h1, h2, h3 {
+    font-family: Arvo, serif;
+    color: #3e3e3e ! important;
+    margin-bottom: 10px;
+}
+
+h1:first-letter {
+    color: red ! important;
+    font-size: 1.5em ! important;
+    font-family: serif;
+}
+
+h1 {
+    font-size: 36pt;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+h2 {
+    margin-top: 30px;
+    font-size: 16pt;
+}
+
+h3 {
+    margin-top: 30px;
+}
+
+nav {
+    position: static;
+    padding-top: 135px;
+    padding-right: 10px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+nav ul > li {
+    display: list-item;
+    height: auto;
+    margin: 5px 0 5px 0;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+ul {
+    margin-left: 1em;
+}
+
+li {
+    margin: 10px 0 10px 0;
+    text-align: left;
+}
+
+li.current:first-letter {
+    color: red ! important;
+    font-weight: bold;
+    font-family: serif;
+}
+
+a:hover {
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+a, a:visited {
+    font-family: Georgia, serif;
+    color: #5e5e5e;
+}
+
+#page {
+    background-color: #fff;
+    padding: 5px;
+}
+
+#col1 {
+    float: left;
+    width: 15%;
+}
+
+#col2 {
+    float: left;
+    width: 75%;
+    padding-right: 30px;
+    border-right: 5px solid red;
+    height: auto ! important;
+    min-height: 600px;
+    height: 600px;
+    text-align: left;
+}
+
+#col3 {
+    float: left;
+    width: 10%;
+}
+
+@media print {
+    #col1, #col3 {
+        display: none;
+    }
+
+    #col2 {
+        width: 100%;
+        padding-right: 0;
+        border-right: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    nav {
+        padding-top: 0;
+        padding-right: 0;
+    }
+    
+    nav ul {
+        text-align: center;
+    }
+    
+    nav ul > li {
+        display: inline;
+    }
+    
+    figure {
+        width: auto;
+        max-width: 90%;
+    }
+    
+    a, h1 {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    
+    h1 {
+        hyphens: auto;
+    }
+    
+    #col1 {
+        float: none;
+        width: auto;
+    }
+    
+    #col2 {
+        float: none;
+        width: auto;
+        border-right: none;
+        padding-right: 0;
+    }
+    
+    #col3 {
+        display: none;
+    }
+}
