@@ -21,7 +21,7 @@ I wanted to host several personal websites using different domains on the same s
 
 ## Third-party software and artwork
 
-* [Fat-Free Framework 3.7](https://fatfreeframework.com/3.7/)
+* [Fat-Free Framework 3.8](https://fatfreeframework.com/3.8/)
 * [TinyMCE 3.5.12](https://www.tiny.cloud/docs-3x/reference/for-dummies/)
 * [Green Bitcons Icons](https://www.softicons.com/toolbar-icons/green-bitcons-icons-by-some-random-dude/)
 

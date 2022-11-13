@@ -2,7 +2,7 @@
 // This file: /app/controllers/SiteController.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 require_once(AG_INC_DIR.'/Dir.class.php');
 require_once(AG_INC_DIR.'/HTML.class.php');
 
@@ -59,6 +59,7 @@ class SiteController {
         $this->site->load(["ID = ?", $id]);
 
         $this->f3->set("PageTitle", "My Settings");
+        $this->f3->set("BodyOnLoad", "");
         $this->f3->set("TopNav", $this->tpl->render("bcknd/topnav.html"));
         $this->f3->set("Msg", $this->msg);
         $this->f3->set("WebURL", sprintf("http://%s/index.php", $this->site->URL));

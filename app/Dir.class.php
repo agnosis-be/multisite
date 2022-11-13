@@ -2,7 +2,7 @@
 // This file: /app/Dir.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 
 /***
  * Directory with (user) files
@@ -135,7 +135,7 @@ class Dir {
                     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $this->imgMaxWidth, $this->imgMaxHeight, $width_orig, $height_orig);
 
                     // Save resampled file
-                    $boolSaved = @imagejpeg($image_p, $this->Path . "/" . $strFileAdd, 100);
+                    $boolSaved = @imagejpeg($image_p, $this->path . "/" . $strFileAdd, 100);
                     unset($image_p);
                     unset($image);
                 } else {

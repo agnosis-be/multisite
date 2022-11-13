@@ -2,7 +2,7 @@
 // This file: /app/controllers/AlbumController.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 require_once(AG_INC_DIR.'/Dir.class.php');
 
 /***
@@ -100,6 +100,7 @@ class AlbumController {
         $this->f3->set("BtnBackLabel", $strBtnBackLabel);
         $this->f3->set("PageTitle", "My Albums");
         $this->f3->set("Msg", $this->msg);
+        $this->f3->set("BodyOnLoad", "");
         $this->f3->set("MsgOnClick", $this->redirect ? "location.href='?c=album'" : "ag_ToggleLock('')");
         $this->f3->set("Albums", join("\n", $arrRows));
         $this->f3->set("TopNav", $this->tpl->render("bcknd/topnav.html"));

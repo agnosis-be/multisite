@@ -2,7 +2,7 @@
 // This file: /app/controllers/PageController.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 require_once(AG_INC_DIR.'/Dir.class.php');
 require_once(AG_INC_DIR.'/HTML.class.php');
 
@@ -19,7 +19,7 @@ require_once(AG_INC_DIR.'/HTML.class.php');
  *
  * @see '/www/bcknd/index.php'   <-- frontend caller
  * @see '/www/multisite/base.php <-- backend caller
- * @see https://fatfreeframework.com/3.7/views-and-templates
+ * @see https://fatfreeframework.com/3.8/views-and-templates
  *
  */
 class PageController {
@@ -59,7 +59,7 @@ class PageController {
         // Populate template
         $arrRows = array();
         foreach ($arrContent as $r) {
-            $strData = substr(strip_tags($r["Data"]), 0, 100);
+            $strData = substr(strip_tags(strval($r["Data"])), 0, 100);
             $strData = str_replace("&nbsp;", " ", $strData);
             $this->f3->set("Data", $strData . "...");
             $this->f3->set("Title", $r["Title"]);
@@ -69,6 +69,7 @@ class PageController {
         $this->f3->set("Rows", join("\n", $arrRows));
         $this->f3->set("PageTitle", "My Pages");
         $this->f3->set("Msg", $this->msg);
+        $this->f3->set("BodyOnLoad", "");
         $this->f3->set("TopNav", $this->tpl->render("bcknd/topnav.html"));
         $this->f3->set("MsgOnClick", "location.href='index.php?c=page&amp;a=list'");
         $this->f3->set("Content", $this->tpl->render("bcknd/pg.tpl"));
@@ -172,8 +173,8 @@ class PageController {
         $this->f3->set("WebURL", $strWebURL);
         $this->f3->set("Msg", $this->msg);
         $this->f3->set("Lang", $this->f3['setup']['AG_LANG_OPTS'][$this->site->Lang]);
-        $this->f3->set("Lang2", $this->f3['setup']['AG_LANG_OPTS'][$this->site->Lang2]);
-        $this->f3->set("EditorLang2", strlen($this->site->Lang2) ? $this->tpl->render("bcknd/dt_lang2.tpl") : "");
+        $this->f3->set("Lang2", $this->f3['setup']['AG_LANG_OPTS'][$this->site->Lang2] ?? "");
+        $this->f3->set("EditorLang2", strlen(strval($this->site->Lang2)) ? $this->tpl->render("bcknd/dt_lang2.tpl") : "");
         $this->f3->set("BodyOnLoad", "ag_ToggleControl(arrCtrl, document.forms[1]);");
         $this->f3->set("PageTitle", "Edit My Page");
         $this->f3->set("Files", join("\n", $arrRows));
@@ -204,6 +205,10 @@ class PageController {
         if (!strlen($strTemplate)) {
             $this->f3->error(500, "ERROR: site record has no template");
         }
+
+        $strLangAltDescr = "";
+        $strLangAlt = "";
+        $strIndexPageAlt = "";
 
         if ($lang == $arrSite["Lang"]) {
             // Requested language is default language
@@ -237,7 +242,11 @@ class PageController {
         $this->content->load(['SiteID = ? AND ID = ?', $this->site->ID, $id]);
         if ($this->content->loaded() == 1) {
             $arrContent = $this->content->cast();
+        } else {
+            $arrContent = [];
         }
+
+        $boolRedirect = false;
 
         if (!$arrContent || ($arrContent["UrlPasswdYN"] == 1 && $urlPasswd <> $arrContent["UrlPasswd"])) {
             // Page does not exist OR page requires password AND given password is wrong
@@ -247,7 +256,7 @@ class PageController {
             if ($this->content->loaded() == 1) {
                 $arrContent = $this->content->cast();
             }
-        } elseif (!isset($urlPasswd) && substr(urldecode(strtolower($title)), 0, -4) != strtolower($arrContent[$fldTitle])) {
+        } elseif (!$urlPasswd && substr(urldecode(strtolower(strval($title))), 0, -4) != strtolower(strval($arrContent[$fldTitle]))) {
             // URL is not in beautiful format
             $boolRedirect = True;
         }
@@ -306,6 +315,9 @@ class PageController {
                 sprintf('<link rel="alternate" hreflang="%s" href="http://%s/%s/%d/">',
                 $strLangAlt, $arrSite["URL"], $strIndexPageAlt, $arrContent["ID"]
             ));
+        } else {
+            $this->f3->set("LangAltHref", "");
+            $this->f3->set("LangAltLink", "");
         }
         $this->f3->set("URL", $arrSite["URL"]);
         $this->f3->set("IndexPage", $indexPage);
@@ -332,7 +344,7 @@ class PageController {
 
         // Remove script tags from data fields
         foreach (Content::dataFields as $strFld) {
-            if (strlen($arrUpdate[$strFld])>0) {
+            if (isset($arrUpdate[$strFld]) && strlen($arrUpdate[$strFld])>0) {
                 $arrUpdate[$strFld] = preg_replace('/<script(.*?)>(.*?)<\/script>/is', '', $arrUpdate[$strFld]);
             }
         }
@@ -353,14 +365,14 @@ class PageController {
         }
 
         // Checkboxes and dependencies
-        if ($arrUpdate["AlbumYN"] == 1 && intval($arrUpdate["AlbumDir"]) > 0) {
+        if (isset($arrUpdate["AlbumYN"]) && intval($arrUpdate["AlbumDir"]) > 0) {
             // pass
         } else {
             $arrUpdate["AlbumYN"] = 0;
             $arrUpdate["AlbumDir"] = null;
         }
-        $arrUpdate["NavBarYN"] = $arrUpdate["NavBarYN"] == 1 ? 1 : 0;
-        $arrUpdate["NavBarPosAfterID"] = $arrUpdate["NavBarYN"] == 1 ? intval($arrUpdate["NavBarPosAfterID"]) : null;
+        $arrUpdate["NavBarYN"] = isset($arrUpdate["NavBarYN"]) ? 1 : 0;
+        $arrUpdate["NavBarPosAfterID"] = isset($arrUpdate["NavBarYN"]) && isset($arrUpdate["NavBarPosAfterID"]) ? intval($arrUpdate["NavBarPosAfterID"]) : null;
 
         // Save data
         $this->content->load(['ID = ? AND SiteID = ?', $intID, $this->site->ID]);
@@ -410,7 +422,7 @@ class PageController {
                 $strEmail = HTML::toNCR($matches[1]);
                 return sprintf('<a href="mailto:%s">%s</a>', $strEmail, $strEmail);
             },
-            $strContent
+            strval($strContent)
         );
 
         // Let .jpg file name display the image

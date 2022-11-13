@@ -2,7 +2,7 @@
 // This file: /app/models/Content.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 require_once('Table.class.php');
 
 /***
@@ -32,7 +32,7 @@ class Content extends Table {
         parent::__construct($f3->db, $f3['setup']['TBL_CONTENT']);
 
         $this->beforesave(function($self,$pkeys){
-            if (strlen(trim($self->get('Title'))) == 0) {
+            if (strlen(trim(strval($self->get('Title')))) == 0) {
                 $self->set('Title', '(No Title)');
             }
         });
@@ -61,6 +61,7 @@ class Content extends Table {
 
         // Sort items
         $i = 0;
+        $found = false;
         do {
             $a = array_shift($arr);
             foreach ($arr as $k => $a2) {

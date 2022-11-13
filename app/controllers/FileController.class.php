@@ -2,7 +2,7 @@
 // This file: /app/controllers/FileController.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 require_once(AG_INC_DIR.'/Dir.class.php');
 
 /***
@@ -101,6 +101,8 @@ class FileController {
         if (count($this->msg)) {
             sort($this->msg);
             $this->f3->set("Msg", join("<br>", $this->msg));
+        } else {
+            $this->f3->set("Msg", "");
         }
         $strMsg2 = sprintf(
             "Please note: Only upload files of type <kbd>%s</kbd> with a maximum size ".
@@ -110,6 +112,8 @@ class FileController {
             intval(ini_get("post_max_size"))
         );
         $this->f3->set("Msg2", $strMsg2);
+        $this->f3->set("Msg3", "");
+        $this->f3->set("BodyOnLoad", "");
         $this->f3->set("MsgOnClick", $this->redirect ? sprintf("location.href='?c=file&amp;a=list&amp;album=%d&amp;from=%d'", $this->folderID, $this->fromID) : "ag_ToggleLock('')");
         $this->f3->set("TopNav", $this->tpl->render("bcknd/topnav.html"));
         $this->f3->set("Files", join("\n", $arrRows));

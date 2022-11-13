@@ -2,4 +2,5 @@
 composer/*
 # except
 !composer/composer.json
+!composer/composer.lock
 !composer/EXTERNAL.md

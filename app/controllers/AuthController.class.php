@@ -2,7 +2,7 @@
 // This file: /app/controllers/AuthController.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 
 /***
  * Authorization controller
@@ -113,6 +113,15 @@ class AuthController {
         $this->f3->set("Msg", $this->msg);
         $this->f3->set("MsgOnClick", "ag_ToggleLock('')");
         $this->f3->set("BodyOnLoad", "document.forms[0].elements['Login'].focus()");
+        if (!$this->msg) {
+            $this->f3->set("Passwd", "");
+            $this->f3->set("PasswdClass", "");
+            $this->f3->set("PasswdTitle", "");
+            $this->f3->set("Login", "");
+            $this->f3->set("LoginClass", "");
+            $this->f3->set("LoginTitle", "");
+        }
+        $this->f3->set("TopNav", "");
         $this->f3->set("Content", $this->tpl->render("bcknd/lgn.tpl"));
         echo $this->tpl->render("bcknd/site.tpl");
     }

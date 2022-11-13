@@ -2,7 +2,7 @@
 // This file: /www/bcknd/index.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.0
+// Version: 1.1
 
 /***
  * CMS backend for website owners
@@ -41,11 +41,11 @@ $tblSite->load(["ID = ?", $_SESSION["SITE_ID"]]);
 $tblContent = new Content($f3);
 
 // controller
-$c = trim($_REQUEST["c"]);
+$c = trim($_REQUEST["c"] ?? '');
 // action
-$a = trim($_REQUEST["a"]);
+$a = trim($_REQUEST["a"] ?? '');
 // id
-$id = intval($_REQUEST["id"]);
+$id = intval($_REQUEST["id"] ?? 0);
 
 
 // switch controller
@@ -93,8 +93,8 @@ switch ($c) {
         break;
 
     case "file":
-        $intAlbum = (int) $_REQUEST["album"];
-        $intFrom = (int) $_REQUEST["from"];
+        $intAlbum = intval($_REQUEST["album"] ?? 0);
+        $intFrom = intval($_REQUEST["from"] ?? 0);
         $objFileController = new FileController($f3, $tpl, $tblSite, $intAlbum, $intFrom);
 
         if (count($_FILES)>0) {
@@ -107,7 +107,7 @@ switch ($c) {
         break;
 
     case "album":
-        $intFrom = (int) $_REQUEST["from"];
+        $intFrom = intval($_REQUEST["from"] ?? 0);
         $objAlbumController = new AlbumController($f3, $tpl, $tblSite, $tblContent, $intFrom);
 
         if (isset($_POST["add"])) {
@@ -121,6 +121,8 @@ switch ($c) {
 
     default:
         $f3->set("PageTitle", $_SESSION["SITE_URL"]);
+        $f3->set("BodyOnLoad", "");
+        $f3->set("TopNav", "");
         $f3->set("Content", $tpl->render('bcknd/ndx.tpl'));
         echo $tpl->render("bcknd/site.tpl");
         break;
