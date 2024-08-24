@@ -2,7 +2,7 @@
 // This file: /www/multisite/base.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.1
+// File version: 1.2
 
 /***
  * Shared 'index.php' to be included by every website's index.php
@@ -31,7 +31,12 @@ $tblContent = new Content($f3);
 $title = "";
 $pw = "";
 if (isset($_SERVER["PATH_INFO"])) {
-    list($null, $_id, $title) = explode("/", $_SERVER["PATH_INFO"]);
+    $arrPathInfo = explode("/", $_SERVER["PATH_INFO"]);
+    if (count($arrPathInfo) == 3) {
+        list($null, $_id, $title) = $arrPathInfo;
+    } elseif (count($arrPathInfo) == 2) {
+        list($null, $_id) = $arrPathInfo;
+    }
     $_id = intval($_id);
 } else {
     $_id = intval($_GET["id"] ?? 0);
