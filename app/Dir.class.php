@@ -2,7 +2,7 @@
 // This file: /app/Dir.class.php (UTF-8/LF/4 SP)
 // By: agnosis.be
 // Repo: multisite
-// Version: 1.1
+// File version: 1.2
 
 /***
  * Directory with (user) files
@@ -124,9 +124,9 @@ class Dir {
                     // Keep original ratio
                     $ratio_orig = $width_orig/$height_orig;
                     if ($this->imgMaxWidth/$this->imgMaxHeight > $ratio_orig) {
-                       $this->imgMaxWidth = $this->imgMaxHeight*$ratio_orig;
+                       $this->imgMaxWidth = intval($this->imgMaxHeight*$ratio_orig);
                     } else {
-                       $this->imgMaxHeight = $this->imgMaxWidth/$ratio_orig;
+                       $this->imgMaxHeight = intval($this->imgMaxWidth/$ratio_orig);
                     }
 
                     // Resample!
