@@ -16,8 +16,8 @@ I wanted to host several personal websites using different domains on the same s
 
 ## Programming language and DBMS
 
-* [PHP 7.4](https://www.php.net)
-* [MySQL Community 5.7](https://dev.mysql.com/downloads/mysql/)
+* [PHP 8.x](https://www.php.net)
+* [MySQL Community 8.x](https://dev.mysql.com/downloads/mysql/)
 
 ## Third-party software and artwork
 
