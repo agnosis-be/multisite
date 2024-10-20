@@ -30,6 +30,7 @@ $tblContent = new Content($f3);
 //
 $title = "";
 $pw = "";
+$_id = null;
 if (isset($_SERVER["PATH_INFO"])) {
     $arrPathInfo = explode("/", $_SERVER["PATH_INFO"]);
     if (count($arrPathInfo) == 3) {
